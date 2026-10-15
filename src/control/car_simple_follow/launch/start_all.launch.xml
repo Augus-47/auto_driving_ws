@@ -1,0 +1,13 @@
+<launch>
+  <!-- 启动激光雷达定位节点 -->
+  <include file="$(find-pkg-share lidar_localization_ros2)/launch/lidar_localization.launch.py"/>
+
+  <!-- 启动激光雷达避障节点 -->
+  <include file="$(find-pkg-share laser_avoid)/launch/laser_avoid.launch.xml"/>
+
+
+
+  <!-- 路径跟踪 -->
+  <!-- <include file="$(find-pkg-share car_simple_follow)/launch/simple_follow.launch.xml"/> -->
+  <include file="/home/nvidia/auto_driving/src/control/car_simple_follow/launch/simple_follow.launch.xml"/>
+</launch>

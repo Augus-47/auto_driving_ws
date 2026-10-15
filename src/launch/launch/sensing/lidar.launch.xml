@@ -1,0 +1,8 @@
+<launch>
+    <!-- rs_to_velodyne雷达格式转换 -->
+    <include file="$(find-pkg-share rs_to_velodyne)/launch/rs_to_velodyne.launch.xml"></include> 
+    <!-- rslidar_sdk雷达驱动 -->
+    <include file="$(find-pkg-share rslidar_sdk)/launch/start.py"></include>  
+    <!-- 点云转2d   -->
+    <include file="$(find-pkg-share pointcloud_to_laserscan)/launch/start_launch.py"></include>
+</launch>

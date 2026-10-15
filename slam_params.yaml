@@ -1,0 +1,24 @@
+slam_toolbox:
+  ros__parameters:
+    # 坐标系设置
+    map_frame: map
+    odom_frame: odom
+    base_frame: base_link
+    
+    # 雷达话题 - 根据你的实际情况修改
+    scan_topic: /scan
+    
+    # 建图参数
+    resolution: 0.05
+    max_laser_range: 50.0
+    minimum_time_interval: 0.5
+    transform_timeout: 0.2
+    
+    # 优化器
+    solver_plugin: solver_plugins::CeresSolver
+    ceres_linear_solver: SPARSE_NORMAL_CHOLESKY
+    ceres_preconditioner: SCHUR_JACOBI
+    
+    # 发布设置
+    publish_pose_graph: true
+    publish_map: true

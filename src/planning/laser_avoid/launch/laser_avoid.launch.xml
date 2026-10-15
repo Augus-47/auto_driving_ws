@@ -1,0 +1,16 @@
+<launch>
+  <!-- 参数定义 -->
+  <arg name="safe_distance" default="1.0"/>
+  <arg name="angle_range" default="50.0"/>
+  <arg name="detection_area_min" default="-25.0"/>
+  <arg name="detection_area_max" default="25.0"/>
+  <arg name="obstacle_points_threshold" default="5"/>
+  
+  <!-- 激光雷达避障节点 -->
+  <node pkg="laser_avoid" exec="laser_obstacle_detector" name="laser_obstacle_detector_node" output="screen">
+    <param name="safe_distance" value="$(var safe_distance)"/>
+    <param name="angle_range" value="$(var angle_range)"/>
+    <param name="detection_area" value="[$(var detection_area_min), $(var detection_area_max)]"/>
+    <param name="obstacle_points_threshold" value="$(var obstacle_points_threshold)"/>
+  </node>
+</launch>

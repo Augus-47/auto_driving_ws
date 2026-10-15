@@ -1,0 +1,31 @@
+rtabmap:
+  ros__parameters:
+    frame_id: "base_link"
+    map_frame_id: "map"
+    odom_frame_id: "odom"
+    publish_tf: true
+
+    # 订阅哪些传感器
+    subscribe_rgb: true
+    subscribe_depth: false
+    subscribe_scan: false
+    subscribe_scan_cloud: true
+    approx_sync: true
+
+    # ICP + 雷达
+    Icp/VoxelSize: 0.05
+    Icp/CorrespondenceRatio: 0.3
+    Grid/RangeMax: 60
+
+    # 回环/图优化
+    RGBD/LoopClosureReextractFeatures: true
+    RGBD/OptimizeMaxError: 3.0
+    Optimizer/Strategy: 1
+    Reg/Strategy: 1
+
+    Mem/IncrementalMemory: true
+    Mem/InitWMWithAllNodes: true
+    Mem/STMSize: 30
+
+    database_path: "~/.ros/rtabmap_rslidar_mono.db"
+

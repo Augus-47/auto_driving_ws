@@ -1,0 +1,26 @@
+<launch>
+
+    <arg name="use_rviz" default="true"/>
+    <arg name="rviz_config" default="$(find-pkg-share emplanner)/rviz/rviz.rviz"/>
+
+    <group if="$(var use_rviz)">
+        <node pkg="rviz2" exec="rviz2" name="rviz2" output="screen">
+            <param name="rviz_config_file" value="$(var rviz_config)" />
+            <param name="-d" value="$(var rviz_config)"/>
+        </node>
+    </group>
+
+
+    <group>
+        <node pkg="emplanner" exec="dp_sl_test" name="dp_sl_test" output="screen">
+            <remap from="/current_pose" to="/initialpose"/>
+            <remap from="/planned_path" to="/planning/global_path"/>
+            <remap from="/end_pose" to="/goal_pose"/>
+            <remap from="/vehicle_state" to="/vehicle_state"/>
+            <remap from="/current_lidar_occ_map" to="/current_lidar_occ_map"/>
+            <param name="planning_frequency" value="10"/>
+            <param name="use_sim_time" value="false"/>
+            <param name="map_yaml_filename" value="/home/nvidia/lc/auto_driving/indoor.yaml"/>
+        </node>
+    </group>
+</launch>

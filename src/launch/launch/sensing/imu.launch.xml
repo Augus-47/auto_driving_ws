@@ -1,0 +1,4 @@
+<launch>
+    <!-- imu_node驱动 -->
+    <include file="$(find-pkg-share imu_node)/launch/imu_node.launch.py"></include>
+</launch>

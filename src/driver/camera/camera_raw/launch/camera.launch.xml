@@ -1,0 +1,18 @@
+<launch>
+
+  <arg name="width" default="1920" />
+  <arg name="height" default="1080" />
+  <arg name="fps" default="30" />
+  <arg name="timer_period" default="0.04" />
+  <arg name="is_difference" default="false" />
+  <arg name="camera_device" default="0" />
+
+  <node pkg="camera_raw" exec="camera_node" name="camera_node" output="screen">
+    <param name="width" value="$(var width)" />
+    <param name="height" value="$(var height)" />
+    <param name="fps" value="$(var fps)" />
+    <param name="timer_period" value="$(var timer_period)" />
+    <param name="is_difference" value="$(var is_difference)" />
+    <param name="camera_device" value="$(var camera_device)" />
+  </node>
+</launch>

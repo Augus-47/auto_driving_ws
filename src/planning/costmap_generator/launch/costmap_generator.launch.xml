@@ -1,0 +1,13 @@
+<launch>
+  <arg name="input_points_no_ground" default="/velodyne_points"/>
+  <arg name="output_occupancy_grid" default="occupancy_grid"/>
+
+  <arg name="costmap_generator_param_file" default="$(find-pkg-share costmap_generator)/config/costmap_generator.param.yaml"/>
+
+  <node pkg="costmap_generator" exec="costmap_generator" name="costmap_generator" output="screen">
+    <remap from="~/input/points_no_ground" to="$(var input_points_no_ground)"/>
+    <remap from="~/output/occupancy_grid" to="$(var output_occupancy_grid)"/>
+    <param from="$(var costmap_generator_param_file)"/>
+  </node>
+</launch>
+

@@ -1,0 +1,74 @@
+/**:
+  ros__parameters:
+    global_frame_id: "map"
+    odom_frame_id: "odom"
+    base_frame_id: "base_link"
+
+    map_odom_publish_rate: 50.0
+    transform_tolerance: 0.1
+
+    cloud_topic: "/rslidar_points"
+    odom_topic: "/odom"
+    imu_topic: "/imu"
+    map_topic: "/map"
+    initialpose_topic: "/initialpose"
+
+    registration_method: "NDT_OMP"
+
+    # 室外结构特征少、点云更稀疏，匹配残差天然偏大，阈值适当放宽
+    score_threshold: 1.5        # 室内 1.0 -> 室外 1.5
+    init_score_threshold: 3.0   # 室内 2.0 -> 室外 3.0
+
+    # 室外尺度大、地图稀疏：增大体素分辨率，降低算力压力
+    ndt_resolution: 1.5         # 室内 0.55 -> 室外 1.5
+    ndt_step_size: 0.1          # 室内 0.04 -> 室外 0.1
+    ndt_max_iterations: 35
+    ndt_num_threads: 4
+    transform_epsilon: 0.01     # 室内 0.001 -> 室外 0.01
+    voxel_leaf_size: 0.3        # 室内 0.08 -> 室外 0.3（更强降采样）
+
+    # 室外开阔，利用远处建筑/树木/地物做约束，量程拉满
+    scan_min_range: 1.0         # 室内 0.15 -> 室外 1.0（滤掉近处车体/地面噪点）
+    scan_max_range: 60.0        # 室内 10.0 -> 室外 60.0
+    scan_period: 0.1
+
+    use_pcd_map: true
+    map_path: "/home/nvidia/ros2_ws/maps/map.pcd"
+
+    set_initial_pose: false
+    initial_pose_x: 0.0
+    initial_pose_y: 0.0
+    initial_pose_z: 0.0
+    initial_pose_qx: 0.0
+    initial_pose_qy: 0.0
+    initial_pose_qz: 0.0
+    initial_pose_qw: 1.0
+
+    use_odom: true
+    use_imu: false
+    enable_debug: true
+
+    # 室外车速高、地面起伏（坡道/颠簸），单帧位姿跳变与 z/roll-pitch 容忍度放宽
+    reject_translation_threshold: 1.5   # 室内 0.80 -> 室外 1.5
+    reject_yaw_threshold_deg: 30.0      # 室内 20.0 -> 室外 30.0
+    reject_z_threshold: 1.0             # 室内 0.3 -> 室外 1.0（坡道高程变化）
+    reject_roll_pitch_threshold_deg: 15.0  # 室内 8.0 -> 室外 15.0
+
+    localization_success_frame_num: 3
+    tracking_lost_frame_num: 5
+    allow_tracking_lost_reinit: false
+
+    # 室外里程计打滑/抖动更明显，一致性门限适当放宽
+    enable_odom_consistency_gate: true
+    odom_consistency_trans_margin: 0.40   # 室内 0.20 -> 室外 0.40
+    odom_consistency_yaw_margin_deg: 8.0  # 室内 5.0 -> 室外 8.0
+
+    # 室外静止判定：点云抖动更大，NDT 残差阈值略放宽
+    enable_static_ndt_reject: true
+    static_odom_trans_threshold: 0.01
+    static_odom_yaw_threshold_deg: 0.3
+    static_ndt_trans_threshold: 0.08      # 室内 0.05 -> 室外 0.08
+    static_ndt_yaw_threshold_deg: 3.0     # 室内 2.0 -> 室外 3.0
+
+    enable_backward_reject: true
+    backward_correction_threshold: 0.05

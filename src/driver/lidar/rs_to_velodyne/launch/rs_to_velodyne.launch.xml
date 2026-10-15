@@ -1,0 +1,17 @@
+<launch>
+  <arg name="param_path" default="$(find-pkg-share rs_to_velodyne)/config/lidar_to_base.param.yaml"/>
+  <arg name="input_format" default="XYZIRT"/>
+  <!-- XYZIRC -->
+  <arg name="output_format" default="XYZIRT"/>
+  
+  <node pkg="rs_to_velodyne" exec="rs_to_velodyne" name="rs_to_velodyne" output="screen">
+    <param name="input_format" value="$(var input_format)"/>
+    <param name="output_format" value="$(var output_format)"/>
+    <param from="$(var param_path)"/>
+  </node>
+  
+  <!-- <include file="$(find-pkg-share rs_to_velodyne)/launch/tf.launch.py">
+  </include> -->
+
+  
+</launch>

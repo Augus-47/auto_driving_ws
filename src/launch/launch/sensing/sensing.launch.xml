@@ -1,0 +1,19 @@
+<launch>
+
+    <arg name="use_lidar" default="true" description="是否使用雷达"/>
+    <arg name="use_imu" default="true" description="是否使用IMU"/>
+    <arg name="use_camera" default="false" description="是否使用相机"/>
+    
+    <group>
+        <group if="$(arg use_lidar)">
+            <include file="$(find-pkg-share orin_launch)/launch/sensing/lidar.launch.xml"></include>
+        </group>
+        <group if="$(arg use_imu)">
+            <include file="$(find-pkg-share orin_launch)/launch/sensing/imu.launch.xml"></include> 
+        </group>
+        <group if="$(arg use_camera)">
+            <include file="$(find-pkg-share orin_launch)/launch/sensing/camera.launch.xml"></include>
+        </group>
+    </group>
+
+</launch>

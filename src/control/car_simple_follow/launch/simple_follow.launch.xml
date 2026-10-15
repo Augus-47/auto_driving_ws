@@ -1,0 +1,40 @@
+<!-- single_vehicle_controller.launch.xml -->
+<launch>
+  <!-- 参数定义 -->
+  <arg name="robot_frame_id" default="lidar"/>
+  <arg name="max_vel_x" default="0.1"/>
+  <arg name="min_vel_x" default="0.05"/>
+  <arg name="max_vel_theta" default="1.0"/>
+  <arg name="min_vel_theta" default="0.05"/>
+  <arg name="k_v" default="1.7"/>
+  <arg name="k_l" default="0.5"/>
+  <arg name="k_a" default="0.3"/>
+  <arg name="lookahead_distance" default="1.0"/>
+  <arg name="default_speed" default="0.08"/>
+  <arg name="wheelbase" default="0.8"/>
+  <arg name="use_aovid_node" default="true"/>
+  
+  <!-- 控制器节点 -->
+  <group>
+  <node pkg="car_simple_follow" exec="simple_follow_node" name="simple_follow_node" output="screen">
+    <param name="robot_frame_id" value="$(var robot_frame_id)"/>
+    <param name="max_vel_x" value="$(var max_vel_x)"/>
+    <param name="min_vel_x" value="$(var min_vel_x)"/>
+    <param name="max_vel_theta" value="$(var max_vel_theta)"/>
+    <param name="min_vel_theta" value="$(var min_vel_theta)"/>
+    <param name="k_v" value="$(var k_v)"/>
+    <param name="k_l" value="$(var k_l)"/>
+    <param name="k_a" value="$(var k_a)"/>
+    <param name="lookahead_distance" value="$(var lookahead_distance)"/>
+    <param name="default_speed" value="$(var default_speed)"/>
+    <param name="wheelbase" value="$(var wheelbase)"/>
+    <remap from="/planned_trajectory" to="/planning/global_path"/>
+  </node>
+  </group>
+
+  <group if="$(var use_aovid_node)">
+    <!-- 避障节点 -->
+    <include file="$(find-pkg-share laser_avoid)/launch/laser_avoid.launch.xml">
+    </include>
+  </group>
+</launch>

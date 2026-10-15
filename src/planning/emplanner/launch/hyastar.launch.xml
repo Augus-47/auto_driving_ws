@@ -1,0 +1,10 @@
+<launch>
+
+    <arg name="hya_config" default="$(find-pkg-share emplanner)/config/freespace_planner.param.yaml"/>
+    <group>
+        <node pkg="emplanner" exec="hya_star_node" name="hya_star_node" output="screen">
+            <param from="$(var hya_config)"/>
+            <param name="planning_frequency" value="1000"/>
+        </node>
+    </group>
+</launch>

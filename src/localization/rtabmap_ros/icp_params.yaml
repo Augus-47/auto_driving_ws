@@ -1,0 +1,45 @@
+icp_odometry:
+  ros__parameters:
+    # 绝对必须的参数
+    frame_id: "base_link"
+    odom_frame_id: "odom"
+    publish_tf: true
+    use_sim_time: true
+    
+    # 点云基础处理
+    scan_cloud_is_2d: false
+    scan_voxel_size: 0.15  # 不过滤，使用原始点云
+    
+    # 放宽所有ICP限制
+    "Reg/Strategy": "1"
+    "Icp/CorrespondenceRatio": "0.25"   # 极低要求：5%匹配点即可
+    "Icp/MaxTranslation": "3.0"        # 允许极大位移  0.5->3.0
+    "Icp/MaxRotation": "1.5"           # 允许360度旋转6.5 ->0.75  -> 1.5
+    "Icp/Iterations": "10"
+    
+     # 建议新增的：
+    "Icp/RangeMin": "0.2"     # 离雷达太近的点不可信（具体看你的雷达）
+    "Icp/RangeMax": "30.0"    # 或者根据你的环境设一个合理上限
+
+    # 限制最近邻搜索距离，防止跨很远的墙被拉到一起
+    "Icp/MaxCorrespondenceDistance": "0.5"   # 先试 0.5m 左右
+    
+    # 强制提供初始猜测
+    "Odom/GuessMotion": "true"
+    
+    # 里程计丢失后的自动重置：关键！
+    "Odom/ResetCountdown": "3"   # 连续 3 帧失败就自动 reset
+    
+    
+    # "Odom/GuessMinTranslation": "0.0"
+    # "Odom/GuessMinRotation": "0.0"
+    
+    # 确保有初始位姿
+    "initial_pose": "0 0 0 0 0 0"
+    
+    # 禁用所有高级特性
+    "Icp/PointToPlane": "true"
+    "Reg/Force3DoF": "false"  # 先尝试6DoF
+    
+    # 避免 bag 回放时疯狂丢帧（如果是离线播放）
+    always_process_most_recent_frame: false

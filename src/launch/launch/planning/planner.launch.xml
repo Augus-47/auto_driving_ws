@@ -1,0 +1,7 @@
+<launch>
+
+    <!-- 雷达avoid：需要启动pointcloud_to_laserscan -->
+
+    <!-- 规划节点 -->
+    
+</launch>

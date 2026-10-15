@@ -1,0 +1,7 @@
+<launch>
+    <!-- 相机驱动包 -->
+    <arg name="camera_device" default="1" />
+    <include file="$(find-pkg-share camera_raw)/launch/camera.launch.xml">
+        <arg name="camera_device" value="$(var camera_device)" />
+    </include>
+</launch>

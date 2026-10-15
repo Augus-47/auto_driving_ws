@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  
+
+  <!-- 启动模块选项 -->
+  <arg name="launch_localization" default="false" description="定位模块"/>
+  <arg name="launch_perception" default="true" description="感知模块"/>
+  <arg name="launch_planning" default="false" description="规划模块"/>
+  <arg name="launch_control" default="false" description="控制模块"/>
+  <arg name="launch_sensing" default="false" description="传感器模块"/>
+  <arg name="launch_vehicle" default="false" description="车辆模块"/>
+
+  <!-- 车辆 -->
+  <group if="$(var launch_vehicle)">
+    <include file="$(find-pkg-share orin_launch)/launch/vehicle/vehicle.launch.xml"/>
+  </group>
+
+  <!-- 地图 -->
+  <group if="$(var launch_map)">
+    <include file="$(find-pkg-share orin_launch)/launch/map/step1_map_component.launch.xml"/>
+  </group>
+
+  <!-- 传感器 -->
+  <group if="$(var launch_sensing)">
+    <include file="$(find-pkg-share orin_launch)/launch/sensing/step1_sensing.launch.xml"/>
+  </group>
+
+  <!-- 定位 -->
+  <group if="$(var launch_localization)">
+    <include file="$(find-pkg-share orin_launch)/launch/localization/step1_localization.launch.xml"/>
+  </group>
+
+  <!-- 感知 -->
+  <group if="$(var launch_perception)">
+    <include file="$(find-pkg-share orin_launch)/launch/perception/perception.launch.xml"/>
+  </group>
+
+  <!-- 规划 -->
+  <group if="$(var launch_planning)">
+    <include file="$(find-pkg-share orin_launch)/launch/planning/planning.launch.xml"/>
+  </group>
+
+  <!-- 控制 -->
+  <group if="$(var launch_control)">
+    <include file="$(find-pkg-share orin_launch)/launch/control/step1_control_component.launch.xml"/>
+  </group>
+
+</launch>

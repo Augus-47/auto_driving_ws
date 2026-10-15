@@ -1,0 +1,71 @@
+/**:
+  ros__parameters:
+    global_frame_id: "map"
+    odom_frame_id: "odom"
+    base_frame_id: "base_link"
+
+    map_odom_publish_rate: 50.0
+    transform_tolerance: 0.1
+
+    cloud_topic: "/rslidar_points"
+    odom_topic: "/odom"
+    imu_topic: "/imu"
+    map_topic: "/map"
+    initialpose_topic: "/initialpose"
+
+    registration_method: "NDT_OMP"
+
+    score_threshold: 1.0    # 1.5 -> 1.0
+    init_score_threshold: 2.0   # 3.0 -> 2.0
+
+    ndt_resolution: 0.55
+    ndt_step_size: 0.04
+    ndt_max_iterations: 60
+    ndt_num_threads: 4
+    transform_epsilon: 0.001
+    voxel_leaf_size: 0.08
+
+    scan_min_range: 0.15
+    scan_max_range: 10.0
+    scan_period: 0.1
+
+    use_pcd_map: true
+    map_path: "/home/nvidia/ros2_ws/maps/map.pcd"
+
+    # 重点：先改回 true，保证启动后能产生 map->odom
+    set_initial_pose: false
+    initial_pose_x: 0.0
+    initial_pose_y: 0.0
+    initial_pose_z: 0.0
+    initial_pose_qx: 0.0
+    initial_pose_qy: 0.0
+    initial_pose_qz: 0.0
+    initial_pose_qw: 1.0
+
+    use_odom: true
+    use_imu: false
+    enable_debug: true
+
+    reject_translation_threshold: 0.80
+    reject_yaw_threshold_deg: 20.0
+    reject_z_threshold: 0.3
+    reject_roll_pitch_threshold_deg: 8.0
+
+    localization_success_frame_num: 3
+    tracking_lost_frame_num: 5
+    allow_tracking_lost_reinit: false
+
+    # 先关闭保护，让定位能先重新贴回地图
+    enable_odom_consistency_gate: true
+    odom_consistency_trans_margin: 0.20
+    odom_consistency_yaw_margin_deg: 5.0
+
+    enable_static_ndt_reject: true
+    static_odom_trans_threshold: 0.01
+    static_odom_yaw_threshold_deg: 0.3
+    static_ndt_trans_threshold: 0.05
+    static_ndt_yaw_threshold_deg: 2.0
+
+    enable_backward_reject: true
+    backward_correction_threshold: 0.05
+
