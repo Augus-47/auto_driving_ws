@@ -24,3 +24,9 @@ map*.png
 
 # 其他数据文件
 pose_graph.g2o
+
+# 运行时地图/位姿数据（不进源码仓库）
+data/
+
+# 本机专属的 IDE 设置（不上传）
+.claude/settings.local.json
